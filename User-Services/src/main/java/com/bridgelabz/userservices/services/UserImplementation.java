@@ -78,7 +78,8 @@ import lombok.extern.slf4j.Slf4j;
 			 */
 			log.info("your token to collect-" + token);
 
-			String url = "http://localhost:4200/userVerification/";
+			//String url = "http://localhost:4200/userVerification/";
+			String url = "http://localhost:8081/fundoo/User-Services/users/verify/";
 			String body = url + token;
 
 			emailData.setEmail(usersdto.getEmail());
@@ -137,7 +138,10 @@ import lombok.extern.slf4j.Slf4j;
 						&& encryptPass.matches(logindto.getPassword(), userPresent.getPassword())) {
 					return userPresent;
 				} else {
-					String body = "http://localhost:4200/userVerification/"
+//					String body = "http://localhost:4200/userVerification/"
+//							+ generateToken.generateWebToken(userPresent.getUserId());
+					
+					String body ="http://localhost:8081/fundoo/User-Services/users/verify/"
 							+ generateToken.generateWebToken(userPresent.getUserId());
 					em.sendMail(logindto.getEmail(), "login failed click here for verification", body);
 					throw new UserNotVerifiedException("Not a valid credentials", HttpStatus.NOT_ACCEPTABLE);
@@ -165,7 +169,8 @@ import lombok.extern.slf4j.Slf4j;
 
 			if (isUserAlreadyRegistered.isPresent() && isUserAlreadyRegistered.get().isVerified()) {
 				log.info("----------present-------" + isUserAlreadyRegistered.get().isVerified());
-				String body = "http://localhost:4200/resetpassword/"
+				
+				String body = "http://localhost:8081/fundoo/user-service/updatePassword/"
 						+ generateToken.generateWebToken(isUserAlreadyRegistered.get().getUserId());
 
 				em.sendMail(isUserAlreadyRegistered.get().getEmail(), "Updated", body);
