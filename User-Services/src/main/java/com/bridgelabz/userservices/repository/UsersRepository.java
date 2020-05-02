@@ -1,5 +1,7 @@
 package com.bridgelabz.userservices.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
@@ -38,5 +40,13 @@ public UsersEntity getusersByemail(String email) {
 	q.setParameter("email",email);
 	System.out.println("------------------ "+(UsersEntity)q.uniqueResult());
 	return (UsersEntity) q.uniqueResult();
+}
+
+
+@Transactional
+public List<UsersEntity> getAllUsers() {
+	Session session = entityManager.unwrap(Session.class);
+	Query<UsersEntity> query = session.createQuery("from UsersEntity" ,UsersEntity.class);
+	return query.getResultList();
 }
 }

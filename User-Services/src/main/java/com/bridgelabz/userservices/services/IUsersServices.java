@@ -20,4 +20,6 @@ public interface IUsersServices {
 	
 	public UsersEntity login(LoginDto loginData);
 
+	public UsersEntity getUser(String token);
+
 }

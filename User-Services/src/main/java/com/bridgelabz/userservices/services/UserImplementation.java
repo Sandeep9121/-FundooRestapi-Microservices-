@@ -2,6 +2,7 @@ package com.bridgelabz.userservices.services;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
@@ -210,6 +211,11 @@ import lombok.extern.slf4j.Slf4j;
 			}
 			return null;
 		}
+
+		@Override
+		public UsersEntity getUser(String token) {
+			List<UsersEntity> users = repository.getAllUsers();
+			return (UsersEntity) users;
+		}
 		
-	
 	}

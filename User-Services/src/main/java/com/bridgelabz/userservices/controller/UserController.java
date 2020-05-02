@@ -123,5 +123,18 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("user does not exist with given email id", 400, forgotPassword.getEmail()));
 		
 	}
+	
+	@GetMapping("/users/getUser/{token}")
+	public UsersEntity getUser(@PathVariable String token)
+	{
+
+		UsersEntity user = usersService.getUser(token);
+		if(user!=null) {
+			
+			return user;
+			}
+		return null;
+	}
+
 
 }
