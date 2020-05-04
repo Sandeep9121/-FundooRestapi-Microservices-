@@ -6,19 +6,20 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import com.bridgelabz.notesservices.customexception.NoteNotFoundException;
 import com.bridgelabz.notesservices.dto.NoteDto;
 import com.bridgelabz.notesservices.dto.NoteUpdate;
 import com.bridgelabz.notesservices.model.NotesEntity;
 import com.bridgelabz.notesservices.repository.INoteRepository;
-
+@Service
 public class NoteServiceImp implements INoteServices {
   private NotesEntity notes=new NotesEntity();
   @Autowired
   private INoteRepository noteRepository;
 	@Override
-	public boolean createNote(NoteDto noteDto, long userId) {
+	public boolean createNote(NoteDto noteDto,String token, long userId) {
 		BeanUtils.copyProperties(noteDto, notes);
 		notes.setUpdateDate(LocalDateTime.now());
 		notes.setArchieved(false);

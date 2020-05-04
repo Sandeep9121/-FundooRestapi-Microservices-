@@ -1,6 +1,8 @@
 package com.bridgelabz.userservices.controller;
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	@Autowired
 	private UsersEntity user;
-
-    
-	
 	@Autowired
 	private JWTGenerator generateToken;
 
@@ -134,6 +133,12 @@ public class UserController {
 			return user;
 			}
 		return null;
+	}
+	@GetMapping("/users/getUsers")
+	public ResponseEntity<Response> getUsers()
+	{
+		List <UsersEntity> user = usersService.fetchUsers();
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("users found" , user));
 	}
 
 

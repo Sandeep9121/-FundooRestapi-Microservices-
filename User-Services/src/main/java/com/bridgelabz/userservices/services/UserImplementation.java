@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bridgelabz.userservices.customexception.ExitsEmailException;
 import com.bridgelabz.userservices.customexception.MailNotFoundException;
+import com.bridgelabz.userservices.customexception.UserNotFoundException;
 import com.bridgelabz.userservices.customexception.UserNotVerifiedException;
 import com.bridgelabz.userservices.dto.LoginDto;
 import com.bridgelabz.userservices.dto.UpdatePassword;
@@ -214,8 +215,22 @@ import lombok.extern.slf4j.Slf4j;
 
 		@Override
 		public UsersEntity getUser(String token) {
-			List<UsersEntity> users = repository.getAllUsers();
-			return (UsersEntity) users;
+			long userId = generateToken.parseJWTToken(token);
+			UsersEntity user=repository.getusersByid(userId);
+			if(user!=null){
+			return user;
+			}
+			else
+			throw new UserNotFoundException("user Not found",HttpStatus.NOT_FOUND);
+		
 		}
+
+		@Override
+		public List<UsersEntity> fetchUsers() {
+			List<UsersEntity> users =repository.getAllUsers();
+			return users;
+		}
+
+
 		
 	}

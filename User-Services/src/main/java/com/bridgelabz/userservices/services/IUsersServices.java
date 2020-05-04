@@ -1,5 +1,7 @@
 package com.bridgelabz.userservices.services;
 
+import java.util.List;
+
 import com.bridgelabz.userservices.dto.LoginDto;
 import com.bridgelabz.userservices.dto.UpdatePassword;
 import com.bridgelabz.userservices.dto.UsersDto;
@@ -21,5 +23,7 @@ public interface IUsersServices {
 	public UsersEntity login(LoginDto loginData);
 
 	public UsersEntity getUser(String token);
+	
+	List<UsersEntity> fetchUsers();
 
 }
